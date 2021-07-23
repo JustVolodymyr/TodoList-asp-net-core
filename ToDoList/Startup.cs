@@ -35,8 +35,10 @@ namespace ToDoList
             var configurationSection = Configuration.GetSection("ConnectionStrings:DefaultConnection");
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(configurationSection.Value));
 
+            services.AddScoped<IAppDBContext, AppDBContext>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddSingleton<ITaskRepository, TaskRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
             //services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddSwaggerGen(c =>

@@ -4,7 +4,7 @@ using System;
 
 namespace ToDoList.Data
 {
-    public class AppDBContext : DbContext
+    public class AppDBContext : DbContext , IAppDBContext
     {
         //private readonly DbContextOptions options;
 
