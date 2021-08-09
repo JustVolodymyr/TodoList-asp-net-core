@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using ToDoList.Domain.Enums;
 
-namespace ToDoList.Dtos
+namespace ToDoList.Dto
 {
     public class TaskCreateDto
     {

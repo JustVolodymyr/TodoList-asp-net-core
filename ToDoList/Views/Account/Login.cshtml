@@ -1,0 +1,35 @@
+﻿@model ToDoList.Dto.UserLoginDto
+
+<h2>Вхід на сайт</h2>
+
+<a asp-action="Index" asp-controller="Account">На головну</a>
+
+@*<form method="post">
+    <label asp-for="Email">Введіть Email</label><br />
+    <input type="text" name="username" placeholder="Type Username" />
+    <input type="password" name="password" placeholder="Type Password" />
+
+
+    <input type="text" asp-for="Email" />
+    <span asp-validation-for="Email" />
+    <button>Login</button>
+</form>*@
+
+<form asp-action="Login" asp-controller="Account" >
+    <div ></div>
+    <div>
+        <div>
+            <label asp-for="Email">Введіть Email</label>
+            <input type="text" asp-for="Email" />
+            <span  />
+        </div>
+        <div>
+            <label asp-for="Password">Введіть пароль</label>
+            <input asp-for="Password" />
+            <span/>
+        </div>
+        <div >
+            <input type="submit" value="Увійти"/>
+        </div>
+    </div>
+</form>

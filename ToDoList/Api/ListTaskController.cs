@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,22 +8,31 @@ using System.Linq;
 using ToDoList.Dal;
 using ToDoList.Data;
 using ToDoList.Domain;
-using ToDoList.Dtos;
+using ToDoList.Dto;
 
 namespace ToDoList.Api
 {
-    [Route("api/task")]
-    [ApiController]
-    public class TaskController : Controller
+    //[Route("api/task")]
+    //[ApiController]
+    [Authorize]
+    public class ListTaskController : Controller
     {
         private readonly IMapper mapper;
         private readonly ITaskRepository repository;
 
-        public TaskController(ITaskRepository repository, IMapper mapper)
+        public ListTaskController(ITaskRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
         }
+
+        //[Authorize]
+        public IActionResult Task()
+        {
+            //return Content(User.Identity.Name);
+            return View();
+        }
+
 
         [HttpGet]
         [Produces("application/json")]
