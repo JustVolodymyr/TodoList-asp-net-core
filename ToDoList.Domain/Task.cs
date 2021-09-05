@@ -14,11 +14,14 @@ namespace ToDoList.Domain
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [MaxLength(300)]
+        public string Description { get; set; }
+
         public DateTime EnrollDeadline { get; set; }
 
-        public TaskDifficultyLevelEnum Level { get; set; }
+        public TaskDifficultyImportanceEnum Importance { get; set; }
 
-        public TaskStatus status { get; set; }
+        public TaskStatus Status { get; set; }
 
 
         public User Users { get; set; }

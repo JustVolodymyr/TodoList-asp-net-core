@@ -8,8 +8,8 @@ namespace ToDoList.Domain.Enums
 {
     public enum TaskStatus
     {
-        Created,
-        Active,
-        Done
+        Created = 1,
+        Active = 2,
+        Done = 3
     }
 }

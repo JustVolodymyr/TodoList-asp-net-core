@@ -12,7 +12,7 @@ namespace ToDoList.Dto
 
         public DateTime EnrollDeadline { get; set; }
 
-        public TaskDifficultyLevelEnum Level { get; set; }
+        public TaskDifficultyImportanceEnum Level { get; set; }
 
         [Required]
         public TaskStatus status { get; set; }

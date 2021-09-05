@@ -1,9 +1,9 @@
 ﻿namespace ToDoList.Domain.Enums
 {
-    public enum TaskDifficultyLevelEnum
+    public enum TaskDifficultyImportanceEnum
 	{
-		Beginner = 1,
-		Intermediate = 2,
-		Advanced = 3
+		Minor = 1,
+		Begin = 2,
+		Immediately = 3
 	}
 }
