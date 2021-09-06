@@ -17,7 +17,6 @@ namespace ToDoList.Dal
             this.getDbContext = getDbContext;
         }
 
-        //COMPLITE!!!!!!!!!!!!
         public Task Create(Task task)
         {
             getDbContext.Tasks.Add(task);
@@ -25,7 +24,6 @@ namespace ToDoList.Dal
             return task;
         }
 
-        //COMPLITE!!!!!!!!!!!!
         public IList<Task> GetAll()
         {
             return getDbContext.Tasks.ToList();
@@ -41,12 +39,6 @@ namespace ToDoList.Dal
             var result = getDbContext.Tasks.Update(task);
             getDbContext.SaveChanges();
             return result.Entity;
-            //var todo = Find(Id);
-            //todo.WorkTodo = newTodo.WorkTodo;
-            //todo.IsCompleted = newTodo.IsCompleted;
-            //todo.CreatedOn = DateTime.Now;
-            //_context.SaveChangesAsync();
-            //return true;
         }
 
         public void Delete(int id)

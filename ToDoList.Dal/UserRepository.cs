@@ -17,8 +17,6 @@ namespace ToDoList.Dal
             this.getDbContext = getDbContext;
         }
 
-        //COMPLITE!!!!!!!!!!!!
-        //public async Task<int> Add(Todo todo)
         public User Create(User user)
         {
              getDbContext.Users.AddAsync(user);
@@ -26,21 +24,17 @@ namespace ToDoList.Dal
              return user;
         }
 
-        //COMPLITE!!!!!!!!!!!!
-        //public async Task<List<Todo>> GetAll()
+
         public IList<User> GetAll()
         {
             return  getDbContext.Users.ToList();
         }
 
-        //COMPLITE!!!!!!!!!!!!
-        //public Task<Todo> Find(int Id)
         public User GetById(int id)
         {
             return getDbContext.Users.Find(id);
         }
 
-        //COMPLITE!!!!!!!!!!!!
         public IList<Task> GetWithTasksById(int id)
         {
             return getDbContext.Tasks.AsNoTracking().Where(t => t.UserId == id).ToList();
@@ -52,8 +46,6 @@ namespace ToDoList.Dal
             return getDbContext.Users.Any(u => u.Email == email);
         }
 
-        //COMPLITE!!!!!!!!!!!!
-        //public async Task<bool> Update(int Id, Todo newTodo)
         public User Update(User user)
         {
             var result = getDbContext.Users.Update(user);

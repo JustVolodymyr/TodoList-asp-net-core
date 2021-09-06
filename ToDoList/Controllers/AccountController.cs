@@ -39,7 +39,12 @@ namespace ToDoList.Api
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
+            else
+                return View();
         }
 
         [HttpPost]
@@ -53,7 +58,7 @@ namespace ToDoList.Api
                 {
                     await Authenticate(user);
 
-                    return RedirectToAction("index");
+                    return Redirect("../Task/List");
                 }
                 ModelState.AddModelError("", "некоректний логін або пароль");
             }
@@ -63,7 +68,12 @@ namespace ToDoList.Api
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
+            else
+                return View();
         }
 
 
@@ -77,9 +87,9 @@ namespace ToDoList.Api
                 if (userСheck == null)
                 {
                     var user = mapper.Map<User>(userCreateDto);
-                    var t = userRepository.Create(user);
-                    await Authenticate(t);
-                    return RedirectToAction("index");
+                    var result = userRepository.Create(user);
+                    await Authenticate(result);
+                    return Redirect("../Task/List");
                 }
                 else
                     ModelState.AddModelError("", "некоректний логін або пароль");
@@ -92,8 +102,9 @@ namespace ToDoList.Api
         {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim("FirstName", user.LastName),
+                    new Claim(ClaimTypes.Email, user.Email),
                 };
 
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
