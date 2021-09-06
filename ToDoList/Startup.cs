@@ -43,6 +43,8 @@ namespace ToDoList
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
+            services.AddScoped<IHashing, Hashing>();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) // Використання кукі
                 .AddCookie(o => {
                 o.LoginPath = "/Account/Login";

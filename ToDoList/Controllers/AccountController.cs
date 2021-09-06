@@ -19,12 +19,14 @@ namespace ToDoList.Api
     {
         private readonly IAuthRepository repository;
         private readonly IUserRepository userRepository;
+        private readonly IHashing hashing;
         private readonly IMapper mapper;
 
-        public AccountController(IAuthRepository repository, IUserRepository userRepository, IMapper mapper)
+        public AccountController(IAuthRepository repository, IUserRepository userRepository, IHashing hashing, IMapper mapper)
         {
             this.repository = repository;
             this.userRepository = userRepository;
+            this.hashing = hashing;
             this.mapper = mapper;
         }
 
@@ -53,6 +55,7 @@ namespace ToDoList.Api
         {
             if (ModelState.IsValid)
             {
+                password = hashing.GetHash(password);
                 var user = repository.GetByEmailAndPassword(email,password);
                 if (user != null)
                 {
@@ -83,6 +86,7 @@ namespace ToDoList.Api
         {
             if (ModelState.IsValid)
             {
+                userCreateDto.Password = hashing.GetHash(userCreateDto.Password);
                 var userСheck = repository.GetByEmail(userCreateDto.Email);
                 if (userСheck == null)
                 {
