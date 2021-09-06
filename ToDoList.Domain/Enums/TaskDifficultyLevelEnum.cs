@@ -1,9 +1,14 @@
-﻿namespace ToDoList.Domain.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ToDoList.Domain.Enums
 {
     public enum TaskDifficultyImportanceEnum
 	{
-		Minor = 1,
-		Begin = 2,
-		Immediately = 3
-	}
+        [Display(Name = "В останню чергу")]
+        Beginner = 1,
+        [Display(Name = "Спокійно приступай")]
+        Intermediate = 2,
+        [Display(Name = "Негайно!!!")]
+        Advanced = 3
+    }
 }

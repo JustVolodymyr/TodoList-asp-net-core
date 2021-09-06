@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+@model ToDoList.Dto.TaskReadDto
+@if (Model != null)
+{
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Назва</th>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <th scope="row">Опис</th>
+                <td class="text-wrap" style="word-break: break-all;" >@Model.Description</td>
+
+            </tr>
+            <tr>
+                <th scope="row">Термін</th>
+                <td>@Model.EnrollDeadline.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <th scope="row">Важливість</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.Importance)</td>
+            </tr>
+            <tr>
+                <th scope="row">Статус</th>
+                <td>@Html.DisplayFor(modelItem => modelItem.Status)</td>
+            </tr>
+        </tbody>
+    </table>
+    @*</div>*@
+
+}

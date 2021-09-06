@@ -12,74 +12,89 @@ using ToDoList.Dto;
 
 namespace ToDoList.Api
 {
-    //[Route("api/task")]
-    //[ApiController]
     [Authorize]
-    public class ListTaskController : Controller
+    public class TaskController : Controller
     {
         private readonly IMapper mapper;
-        private readonly ITaskRepository repository;
+        private readonly IUserRepository userRepository;
+        private readonly ITaskRepository taskRepository;
 
-        public ListTaskController(ITaskRepository repository, IMapper mapper)
+        public TaskController(ITaskRepository taskRepository, IUserRepository userRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.taskRepository = taskRepository;
+            this.userRepository = userRepository;
             this.mapper = mapper;
         }
 
-        //[Authorize]
-        public IActionResult Task()
+        [HttpGet]
+        public ActionResult<IEnumerable<TaskReadDto>> List()
         {
-            //return Content(User.Identity.Name);
-            return View();
+            var userId = HttpContext.User.Identity.Name;
+            var tasks = userRepository.GetWithTasksById(Convert.ToInt32(userId));
+            var result = mapper.Map<List<TaskReadDto>>(tasks);
+            return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var task = taskRepository.GetById(id);
+            var result = mapper.Map<TaskReadDto>(task);
+            return View(result);
         }
 
 
         [HttpGet]
-        [Produces("application/json")]
-        public ActionResult<IEnumerable<Task>> GetTasks()
+        public IActionResult Add()
         {
-            var result = repository.GetAll();
-            return Ok(mapper.Map<IEnumerable<TaskReadDto>>(result));
+            return View();
         }
 
-
-        [HttpGet("{id}")]
-        [Produces("application/json")]
-        public ActionResult<TaskReadDto> GetCommandById(int id)
-        {
-            var commandItem = repository.GetById(id);
-            return Ok(mapper.Map<TaskReadDto>(commandItem));
-        }
-
-        //POST api/commands
         [HttpPost]
-        [Produces("application/json")]
-        public IActionResult CreateCommand(TaskCreateDto taskCreateDto)
+        public ActionResult AddTask(TaskCreateDto taskCreateDto)
         {
-            var result = mapper.Map<Task>(taskCreateDto);
-            var task = repository.Create(result);
-            return Ok(task);
+            if (ModelState.IsValid)
+            {
+                var maptaskCreateDto = mapper.Map<Task>(taskCreateDto);
+                var userId = HttpContext.User.Identity.Name;
+                maptaskCreateDto.UserId = Convert.ToInt32(userId);
+
+                var result = taskRepository.Create(maptaskCreateDto);
+                return Json(new { isValid = true, html = Helper.Helper.RenderRazorViewToString(this, "_ViewAll", List()) });
+            }
+            else return Json(new { isValid = false, html = Helper.Helper.RenderRazorViewToString(this, "Add", taskCreateDto) });
         }
 
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, TaskUpdateDto taskUpdateDto)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            //task.Id = id;
-            //var updateTask = repository.Update(task);
-            //return Ok(updateTask);
-
-            var updateTask = repository.GetById(id);
-            mapper.Map(taskUpdateDto, updateTask);
-            repository.Update(updateTask);
-            return Ok(taskUpdateDto);
+            var task = taskRepository.GetById(id);
+            return View(task);
         }
 
-        [HttpDelete("{id}")]
+        public IActionResult EditTask(Task taskUpdateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var updateTask = taskRepository.Update(taskUpdateDto);
+                return Json(new { isValid = true, html = Helper.Helper.RenderRazorViewToString(this, "_ViewAll", List()) });
+            }
+            else return Json(new { isValid = false, html = Helper.Helper.RenderRazorViewToString(this, "Edit", taskUpdateDto) });
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var task = taskRepository.GetById(id);
+            return View(mapper.Map<TaskReadDto>(task));
+        }
+
         public IActionResult DeleteTask(int id)
         {
-            repository.Delete(id);
-            return Ok();
+            taskRepository.Delete(id);
+            return RedirectToAction("List");
         }
     }
 }

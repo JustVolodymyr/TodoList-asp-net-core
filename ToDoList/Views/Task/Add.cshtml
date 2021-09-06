@@ -1,0 +1,44 @@
+﻿@{ 
+    Layout = null;
+}
+
+
+@model ToDoList.Dto.TaskCreateDto
+
+
+    <form asp-action="AddTask" asp-controller="Task" onsubmit="return jQueryAjaxPost(this)" autocomplete="off">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div class="form-group">
+                <label asp-for="Name">Назва завдання</label><br />
+                <input type="text" asp-for="Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Опис</label><br />
+                <textarea class="form-control" type="text" asp-for="Description" rows="3"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EnrollDeadline">Термін</label>
+                <input type="date" asp-for="EnrollDeadline" class="form-control">
+                <span class="text-danger" asp-validation-for="EnrollDeadline"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Importance">Важливість</label><br />
+                <select asp-for="Importance" class="form-control">
+                    <option value="">Виберіть важливість</option>
+                    <option value="1">В останню чергу</option>
+                    <option value="2">Спокійно приступай</option>
+                    <option value="3">Негайно!!!</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Importance"></span>
+            </div>
+            <input asp-for="Status" value="1" type="hidden" />
+            <div class="modal-footer">
+                <input class="btn btn-success" type="submit" value="Створити" />
+                <a class="btn btn-secondary text-white" aria-hidden="true" data-dismiss="modal">Закрити</a>
+            </div>
+        </div>
+    </form>

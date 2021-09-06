@@ -14,11 +14,15 @@ namespace ToDoList.Dto
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(150)]
+        public string Description { get; set; }
+
         public DateTime EnrollDeadline { get; set; }
 
-        public TaskDifficultyImportanceEnum Level { get; set; }
+        public TaskDifficultyImportanceEnum Importance { get; set; }
 
-        public TaskStatus status { get; set; }
+        public TaskStatus Status { get; set; }
 
         public int UserId { get; set; }
     }

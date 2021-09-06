@@ -20,10 +20,6 @@
     <ProjectReference Include="..\ToDoList.Domain\ToDoList.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Task\" />
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

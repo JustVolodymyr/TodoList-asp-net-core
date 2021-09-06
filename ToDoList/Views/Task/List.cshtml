@@ -1,0 +1,22 @@
+﻿@using ToDoList.Domain;
+@model IEnumerable<ToDoList.Dto.TaskReadDto>;
+
+<div class="d-flex justify-content-between mt-5">
+    <div class="d-flex flex-column">
+
+        <div class="m-3">
+            <a onclick="showInPopup('@Url.Action("Add","Task",null,Context.Request.Scheme)','Нове завдання')"
+               class="btn btn-success text-white">Додати</a>
+        </div>
+    </div>
+    <div class="m-3">
+        <select class="form-control form-control-sm">
+            <option value="">Сьогодні</option>
+            <option value="">На тиждень</option>
+            <option value="">На місяць</option>
+        </select>
+    </div>
+</div>
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll", Model)
+</div>
