@@ -18,5 +18,6 @@ namespace ToDoList.Dal
 
         void Delete(int id);
 
+        IList<Task> GetByDate(int typeSort, int id);
     }
 }

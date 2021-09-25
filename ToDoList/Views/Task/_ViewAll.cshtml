@@ -1,8 +1,12 @@
-﻿@model IEnumerable<ToDoList.Dto.TaskReadDto>;
+﻿@model IEnumerable<TaskReadDto>;
 
-@if (@Model.Any())
-{
-<div>
+@{ 
+    Layout = null;
+}
+
+@*@if (@Model.Any())
+    {*@
+<div id="table">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -15,29 +19,28 @@
         <tbody>
             @foreach (var task in Model)
             {
-<tr>
-    <th scope="row">@task.Name</th>
-    <td>
-        @task.EnrollDeadline.ToShortDateString()
-
-        @*@Html.DisplayFor(modelItem => task.EnrollDeadline.ToShortDateString())*@
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.Importance)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.Status)
-    </td>
-    <td class="text-right">
-        <a class="btn btn-secondary btn-sm text-white" onclick="showInPopup('@Url.Action("Details","Task",new {id=task.Id},Context.Request.Scheme)','Деталі завдання')">Details</a>
-        <a class="btn btn-primary btn-sm text-white" onclick="showInPopup('@Url.Action("Edit","Task",new {id=task.Id},Context.Request.Scheme)','Редагування завдання')">Edit</a>
-        <a class="btn btn-danger btn-sm text-white" onclick="showInPopup('@Url.Action("Delete","Task",new {id=task.Id},Context.Request.Scheme)','Видалити завдання')">Delete</a>
-    </td>
-</tr>
-}
+                <tr>
+                    <th scope="row">@task.Name</th>
+                    <td>
+                        @task.EnrollDeadline.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.Importance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.Status)
+                    </td>
+                    <td class="text-center col-md-3">
+                        <a class="btn btn-secondary btn-sm text-white" onclick="showInPopup('@Url.Action("Details","Task",new {id=task.Id},Context.Request.Scheme)','Деталі завдання')">Деталі</a>
+                        <a class="btn btn-primary btn-sm text-white" onclick="showInPopup('@Url.Action("Edit","Task",new {id=task.Id},Context.Request.Scheme)','Редагування завдання')">Редагувати</a>
+                        <a class="btn btn-danger btn-sm text-white" onclick="showInPopup('@Url.Action("Delete","Task",new {id=task.Id},Context.Request.Scheme)','Видалити завдання')">Видалити</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
-</div> }
-else
-{
-<h3>Жодного завдання ще не додано!</h3>}
+</div>
+@*}
+    else
+    {
+    <h3>Жодного завдання ще не додано!</h3>}*@

@@ -35,6 +35,15 @@ namespace ToDoList.Api
             return View(result);
         }
 
+        [HttpPost]
+        public ActionResult<IEnumerable<TaskReadDto>> ListSelect(int typeSelect)
+        {
+            var userId = HttpContext.User.Identity.Name;
+            var tasks = taskRepository.GetByDate(typeSelect, Convert.ToInt32(userId));
+            var result = mapper.Map<List<TaskReadDto>>(tasks);
+            return View("_ViewAll", result);
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {

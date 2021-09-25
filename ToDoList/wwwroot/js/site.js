@@ -18,7 +18,6 @@ jQueryAjaxPost = form => {
             data: new FormData(form),
             contentType: false,
             processData: false,
-            
             success: function (res) {
                 if (res.isValid) {
                     $('#view-all').html(res.html)
@@ -39,3 +38,19 @@ jQueryAjaxPost = form => {
         console.log(ex)
     }
 }
+
+jQuery(document).ready(function ($) {
+    $("#ddlAjax").on('change', function () {
+        var value = $(this).val();
+        if (value) {
+            $.ajax({
+                type: "POST",
+                url: "ListSelect",
+                data: { typeSelect: value },
+                success: function (data) {
+                    $('#table').replaceWith(data);
+                }
+            });
+        }
+    });
+});

@@ -47,5 +47,27 @@ namespace ToDoList.Dal
             getDbContext.Tasks.Remove(task);
             getDbContext.SaveChanges();
         }
+
+        public IList<Task> GetByDate(int typeSort, int id)
+        {
+            var task = getDbContext.Tasks.Where(t => t.UserId == id).ToList();
+            switch (typeSort)
+            {
+                case 1:
+                    break;
+                case 2:
+                    task = task.Where(t => t.EnrollDeadline.Value.Day == DateTime.Now.Day).ToList();
+                    break;
+                case 3:
+                    task = task.Where(t => t.EnrollDeadline.Value.Day == DateTime.Now.Day + 1).ToList();
+                    break;
+                case 4:
+                    DateTime startDayOfWeek = DateTime.Today.AddDays(1 - (int)(DateTime.Today.DayOfWeek));
+                    DateTime endDayOfWeek = DateTime.Today.AddDays(7 - (int)DateTime.Today.DayOfWeek);
+                    task = task.Where(x => x.EnrollDeadline >= startDayOfWeek && x.EnrollDeadline <= endDayOfWeek).ToList();
+                    break;
+            }
+            return task;
+        }
     }
 }
