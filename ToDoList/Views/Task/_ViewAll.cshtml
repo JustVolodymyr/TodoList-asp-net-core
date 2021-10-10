@@ -19,23 +19,46 @@
         <tbody>
             @foreach (var task in Model)
             {
-                <tr>
-                    <th scope="row">@task.Name</th>
-                    <td>
-                        @task.EnrollDeadline.ToShortDateString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => task.Importance)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => task.Status)
-                    </td>
-                    <td class="text-center col-md-3">
-                        <a class="btn btn-secondary btn-sm text-white" onclick="showInPopup('@Url.Action("Details","Task",new {id=task.Id},Context.Request.Scheme)','Деталі завдання')">Деталі</a>
-                        <a class="btn btn-primary btn-sm text-white" onclick="showInPopup('@Url.Action("Edit","Task",new {id=task.Id},Context.Request.Scheme)','Редагування завдання')">Редагувати</a>
-                        <a class="btn btn-danger btn-sm text-white" onclick="showInPopup('@Url.Action("Delete","Task",new {id=task.Id},Context.Request.Scheme)','Видалити завдання')">Видалити</a>
-                    </td>
-                </tr>
+            <tr class="strikeout">
+                <th scope="row">@task.Name</th>
+                <td>
+                    <div class="accordion" id="task-accordion">
+                        <div>
+                            <div>
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button"
+                                            data-toggle="collapse" data-target="#task-@task.Id">
+                                        Опис
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="task-@task.Id" class="collapse" data-parent="#task-accordion">
+                                <p>
+                                    @task.Description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @task.EnrollDeadline.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => task.Importance)
+                </td>
+                <td>
+                    <select class="statusEdit statusCheck form-control" data-id="@task.Id" asp-for="@task.Status">
+                        <option value="1">Не розпочато</option>
+                        <option value="2">В ході виконання</option>
+                        <option value="3">Виконано</option>
+                    </select>
+                </td>
+                <td class="text-center col-md-3">
+                    <a class="btn btn-secondary btn-sm text-white" onclick="showInPopup('@Url.Action("Details","Task",new {id=task.Id},Context.Request.Scheme)','Деталі завдання')">Деталі</a>
+                    <a class="btn btn-primary btn-sm text-white" onclick="showInPopup('@Url.Action("Edit","Task",new {id=task.Id},Context.Request.Scheme)','Редагування завдання')">Редагувати</a>
+                    <a class="btn btn-danger btn-sm text-white" onclick="showInPopup('@Url.Action("Delete","Task",new {id=task.Id},Context.Request.Scheme)','Видалити завдання')">Видалити</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

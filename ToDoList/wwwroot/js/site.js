@@ -54,3 +54,21 @@ jQuery(document).ready(function ($) {
         }
     });
 });
+
+jQuery(document).ready(function ($) {
+    $('body').on('change', '.statusEdit', function () {
+        var taskStatus = $(this).val();
+        var id = $(this).data('id');
+        //debugger;
+        if (taskStatus) {
+            $.ajax({
+                type: "POST",
+                url: "EditStatus",
+                data: { taskStatus: taskStatus, id: id },
+                success: function (data) {
+                    $('#table').replaceWith(data);
+                }
+            });
+        }
+    });
+});

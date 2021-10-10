@@ -8,6 +8,7 @@ using System.Linq;
 using ToDoList.Dal;
 using ToDoList.Data;
 using ToDoList.Domain;
+using ToDoList.Domain.Enums;
 using ToDoList.Dto;
 
 namespace ToDoList.Api
@@ -90,6 +91,14 @@ namespace ToDoList.Api
                 return Json(new { isValid = true, html = Helper.Helper.RenderRazorViewToString(this, "_ViewAll", List()) });
             }
             else return Json(new { isValid = false, html = Helper.Helper.RenderRazorViewToString(this, "Edit", taskUpdateDto) });
+        }
+
+        [HttpPost]
+        public IActionResult EditStatus(int id, TaskStatus taskStatus)
+        {
+            var userId = HttpContext.User.Identity.Name;
+            var task = taskRepository.UpdateStatus(Convert.ToInt32(userId), id, taskStatus);
+            return View(task);
         }
 
 

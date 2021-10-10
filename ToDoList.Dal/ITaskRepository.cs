@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ToDoList.Domain;
+using ToDoList.Domain.Enums;
 
 namespace ToDoList.Dal
 {
@@ -15,6 +16,8 @@ namespace ToDoList.Dal
         Task GetById(int id);
 
         Task Update(Task webinar);
+
+        Task UpdateStatus(int taskId, int userId, TaskStatus taskStatus);
 
         void Delete(int id);
 

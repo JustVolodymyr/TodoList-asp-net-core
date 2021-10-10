@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using ToDoList.Data;
 using ToDoList.Domain;
+using ToDoList.Domain.Enums;
 
 namespace ToDoList.Dal
 {
@@ -36,6 +37,15 @@ namespace ToDoList.Dal
 
         public Task Update(Task task)
         {
+            var result = getDbContext.Tasks.Update(task);
+            getDbContext.SaveChanges();
+            return result.Entity;
+        }
+
+        public Task UpdateStatus(int userId, int taskId, TaskStatus taskStatus)
+        {
+            Task task = getDbContext.Tasks.FirstOrDefault(t => t.UserId == userId && t.Id == taskId);
+            task.Status = taskStatus;
             var result = getDbContext.Tasks.Update(task);
             getDbContext.SaveChanges();
             return result.Entity;
