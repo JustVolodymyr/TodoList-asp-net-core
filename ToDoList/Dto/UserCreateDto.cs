@@ -23,9 +23,9 @@ namespace ToDoList.Dto
         [StringLength(100, ErrorMessage = "Поле {0} повинно мати мінімум {2} і максимум {1} символов.", MinimumLength = 5)]
         public string Password { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [StringLength(100, ErrorMessage = "Поле {0} повинно мати мінімум {2} і максимум {1} символов.", MinimumLength = 5)]
-        public string ConfirmPassword { get; set; }
+        //[Required]
+        //[DataType(DataType.Password)]
+        //[StringLength(100, ErrorMessage = "Поле {0} повинно мати мінімум {2} і максимум {1} символов.", MinimumLength = 5)]
+        //public string ConfirmPassword { get; set; }
     }
 }
